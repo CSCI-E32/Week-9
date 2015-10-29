@@ -58,11 +58,25 @@ describe('UserSvc', function(){
   });
 });
 
-xdescribe('UsersHttp', function(){
+describe('UsersHttp', function(){
+  var $httpBackend, usersHttp;
+  beforeEach(module('serviceapp'));
+  beforeEach(function(){
+    inject(function($injector){
+      $httpBackend = $injector.get('$httpBackend');
+      usersHttp = $injector.get('UsersHttp');
+    });
 
+    $httpBackend
+      .when('GET', '/users.json')
+      .respond(200, [{name: "one"}, {name: "two"}]);
+
+  });
   describe('getUsers', function(){
     it("should return some users", function(){
-
+      usersHttp.getUsers(function(){
+        expect(usersHttp.users.length).toBeGreaterThan(0);        
+      });
     });
   });
 });

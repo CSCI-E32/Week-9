@@ -3,11 +3,15 @@ angular.module('serviceapp').service('UsersHttp', ['$http', function($http){
 
   svc.users = [];
 
-  svc.getUsers = function(){
-    $http.get('/users.json')
+  svc.getUsers = function(callback){
+    //$http.get('/users.json')
+    $http.get('http://jsonplaceholder.typicode.com/users')
       .then(function(response){
         console.log(response);
         svc.users = response.data;
+        if(callback){
+          callback();
+        }
       });
   };
 
