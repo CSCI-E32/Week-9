@@ -1,3 +1,21 @@
+angular.module('serviceapp').service('UsersHttp', ['$http', function($http){
+  var svc = this;
+
+  svc.users = [];
+
+  svc.getUsers = function(){
+    $http.get('/users.json')
+      .then(function(response){
+        console.log(response);
+        svc.users = response.data;
+      });
+  };
+
+}]);
+
+
+
+
 angular.module('serviceapp').value('Users',[
   {
     "id": 1,

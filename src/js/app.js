@@ -1,9 +1,12 @@
 var app = angular.module('serviceapp', []);
 
-app.controller('ControllerOne', ['NameVal', 'Users', 'UserFact', function(NameVal, Users, UserFact){
+app.controller('ControllerOne', ['NameVal', 'Users', 'UserFact', 'UsersHttp', function(NameVal, Users, UserFact, UsersHttp){
   var c1 = this;
   c1.name = NameVal;
-  c1.users = Users;
+  c1.users = UsersHttp.users;
+  c1.usersHttp = UsersHttp;
+  UsersHttp.getUsers();
+
 
   c1.removeUser = function(index){
     UserFact.remove(index);
